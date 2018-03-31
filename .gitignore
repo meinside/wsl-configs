@@ -1,0 +1,121 @@
+# git ignore file of meinside@gmail.com
+# last update: 2018.03.31.
+
+# unnecessary binary files
+*.o
+*.lo
+*.la
+*.al
+.libs
+*.so
+*.so.[0-9]*
+*.a
+*.pyc
+*.pyo
+*.class
+
+# swap files
+*.swp
+*~.nib
+
+# cache files/dirs
+.cache
+
+# other scm files
+.cvs
+.svn
+
+# osx files
+.AppleDB
+.AppleDesktop
+.AppleDouble
+.DS_Store
+Network Trash Folder
+Temporary Items
+
+# temp files/dirs
+backups/
+tmp/
+.rpi-firmware
+
+# go files/dirs
+.gogets
+.gore/
+
+# haskell files/dirs
+.ghc/
+.stack/
+
+# julia files/dirs
+.julia/
+
+# node files/dirs
+.npm
+node
+node_modules
+
+# ruby files/dirs
+.bundle
+.bundler
+.rvm/
+
+# python files/dirs
+.pip/
+.virtualenvs/
+
+# other src files
+public_html
+srcs
+
+# X files
+.dbus/
+.local/
+.xsession-errors
+.Xauthority
+
+# private/config files & dirs
+.aptitude/
+.config/
+.custom_aliases
+.gist-vim
+.gitconfig
+.gtmx.json
+.gnupg
+.oh-my-zsh/
+
+# history files
+.*history
+.dbshell
+.nvimlog
+.oracle_jre_usage/
+.psql_history*
+.wget-hsts
+
+# etc. files/dirs
+.bash_logout
+.erlang.cookie
+.fontconfig/
+.gem
+.httpie/
+.lein/
+.lesshst
+.lnav/
+.m2/
+.ngrok2/
+.profile
+.qws
+.rnd
+.ssh
+.subversion
+.sudo_as_admin_successful
+.vim
+.viminfo
+.vimrc.lowperf
+.w3m/
+.zcompdump*
+.zsh-update
+mbox
+
+# data dir
+files/
+

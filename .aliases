@@ -1,0 +1,11 @@
+# .aliases
+#
+# created by meinside@gmail.com
+# last update: 2018.03.31.
+
+alias ll="ls -alF"
+
+alias ngrep="sudo ngrep -q -W byline"
+alias ctags='ctags -R --totals=yes'
+
+alias httpserver="ruby -rwebrick -e's=WEBrick::HTTPServer.new(Port:8080,DocumentRoot:Dir.pwd);trap(\"INT\"){s.shutdown};s.start'"
