@@ -1,7 +1,7 @@
 " meinside's .vimrc file,
 " created by meinside@gmail.com,
 "
-" last update: 2018.02.28.
+" last update: 2018.03.31.
 "
 " XXX - change default text editor:
 " $ sudo update-alternatives --config editor
