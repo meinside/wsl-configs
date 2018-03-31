@@ -12,6 +12,9 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+# default umask
+umask 0022
+
 # Path to your oh-my-zsh installation.
 # (https://github.com/robbyrussell/oh-my-zsh)
 export ZSH=$HOME/.oh-my-zsh

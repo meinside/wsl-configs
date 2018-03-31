@@ -11,6 +11,9 @@ case $- in
       *) return;;
 esac
 
+# default umask
+umask 0022
+
 # various configurations
 export DISPLAY=:0.0
 export EDITOR="/usr/bin/vim"
