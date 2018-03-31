@@ -20,3 +20,12 @@ $ wget -O - "https://raw.github.com/meinside/wsl-configs/master/bin/prep.sh" | b
 
 then this repository will be cloned to the user's home directory.
 
+## 999. Trouble Shooting
+
+### Hash Sum Mismatch on apt-get update
+
+```bash
+$ sudo rm -rf /var/lib/apt/lists/partial
+$ sudo apt-get update -o Acquire::CompressionTypes::Order::=gz
+```
+
