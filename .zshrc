@@ -1,7 +1,7 @@
 # .zshrc
 #
 # created on 2018.03.31.
-# updated on 2018.03.31.
+# updated on 2018.04.01.
 #
 # ... by meinside@gmail.com
 #
@@ -88,9 +88,7 @@ if [[ -z $TMUX ]]; then
 	export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 	# for Go
-	if [ -d /opt/go/bin ]; then
-		export GOROOT=/opt/go
-	elif [ -x "`which go`" ]; then
+	if [ -x "`which go`" ]; then
 		export GOROOT=`go env GOROOT`
 	fi
 	if [ -d $GOROOT ]; then
@@ -100,12 +98,6 @@ if [[ -z $TMUX ]]; then
 
 	# for Lein (Clojure)
 	export LEIN_JVM_OPTS=""
-
-	# for Erlang and Elixir
-	export PATH=$PATH:/opt/erlang/bin:/opt/elixir/bin
-
-	# for Node.js
-	export PATH=$PATH:/opt/node/bin
 
 	# additional paths
 	export PATH="$PATH:$HOME/bin"
