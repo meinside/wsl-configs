@@ -84,51 +84,46 @@ if has('nvim')
 endif
 Plug 'itchyny/vim-haskell-indent', {'for': 'haskell'}
 
-" XXX - do not load following plugins on machines with low performance:
-" (touch '~/.vimrc.lowperf' for it)
-let lowperf=expand('~/.vimrc.lowperf')
-if !filereadable(lowperf)
 
-	" For syntax checking
-	Plug 'vim-syntastic/syntastic'
-	set statusline+=%#warningmsg#
-	if exists('*SyntasticStatuslineFlag')
-		set statusline+=%{SyntasticStatuslineFlag()}
-	endif
-	set statusline+=%*
-	let g:syntastic_always_populate_loc_list = 1
-	let g:syntastic_auto_loc_list = 1
-	let g:syntastic_check_on_open = 0
-	let g:syntastic_check_on_wq = 0
+" For syntax checking
+Plug 'vim-syntastic/syntastic'
+set statusline+=%#warningmsg#
+if exists('*SyntasticStatuslineFlag')
+	set statusline+=%{SyntasticStatuslineFlag()}
+endif
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
 
-	" For gitgutter
-	Plug 'airblade/vim-gitgutter'        " [c, ]c for prev/next hunk
-	let g:gitgutter_highlight_lines = 1
-	let g:gitgutter_realtime = 0
-	let g:gitgutter_eager = 0
+" For gitgutter
+Plug 'airblade/vim-gitgutter'        " [c, ]c for prev/next hunk
+let g:gitgutter_highlight_lines = 1
+let g:gitgutter_realtime = 0
+let g:gitgutter_eager = 0
 
-	" For Go
-	if has('nvim')
-		Plug 'zchee/deoplete-go', {'for': 'go', 'do': 'make'}	" For autocompletion
-	endif
-	let g:go_fmt_command = "goimports"     " auto import dependencies
-	let g:go_highlight_build_constraints = 1
-	let g:go_highlight_extra_types = 1
-	let g:go_highlight_fields = 1
-	let g:go_highlight_functions = 1
-	let g:go_highlight_methods = 1
-	let g:go_highlight_operators = 1
-	let g:go_highlight_structs = 1
-	let g:go_highlight_types = 1
-	let g:go_auto_sameids = 1
-	let g:go_auto_type_info = 1
-	let g:syntastic_go_checkers = ['go']	" XXX: 'golint' is too slow, use :GoLint manually.
-	let g:syntastic_aggregate_errors = 1
+" For Go
+if has('nvim')
+	Plug 'zchee/deoplete-go', {'for': 'go', 'do': 'make'}	" For autocompletion
+endif
+let g:go_fmt_command = "goimports"     " auto import dependencies
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_auto_sameids = 1
+let g:go_auto_type_info = 1
+let g:syntastic_go_checkers = ['go']	" XXX: 'golint' is too slow, use :GoLint manually.
+let g:syntastic_aggregate_errors = 1
 
-	" For Python
-	if has('nvim')
-		Plug 'zchee/deoplete-jedi', {'for': 'python'}	" For autocompletion
-	endif
+" For Python
+if has('nvim')
+	Plug 'zchee/deoplete-jedi', {'for': 'python'}	" For autocompletion
 endif
 
 "
@@ -162,9 +157,6 @@ set breakindent
 
 " for color schemes
 set t_Co=256
-if exists('$TMUX')
-	"set termguicolors	" not working in terminals
-endif
 colo elflord
 
 " file browser (netrw)
