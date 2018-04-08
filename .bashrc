@@ -1,7 +1,7 @@
-# .bashrc for Raspberry Pi
+# .bashrc
 #
 # created on 2018.03.31.
-# updated on 2018.04.01.
+# updated on 2018.04.09.
 #
 # ... by meinside@gmail.com
 
@@ -162,7 +162,9 @@ if [[ -z $TMUX ]]; then
 	export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 	# for Go
-	if [ -x "`which go`" ]; then
+	if [ -d /opt/go/bin ]; then
+		export GOROOT=/opt/go
+	elif [ -x "`which go`" ]; then
 		export GOROOT=`go env GOROOT`
 	fi
 	if [ -d $GOROOT ]; then
