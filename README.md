@@ -47,10 +47,9 @@ $ sudo apt-get update -o Acquire::CompressionTypes::Order::=gz
 
 ### `cannot allocate memory` when forking a new process
 
-Try:
+Try appending the following line to `/etc/sysctl.conf` file:
 
 ```bash
-$ sudo sysctl -w vm.overcommit_memory=2
-$ sudo sysctl -w vm.overcommit_ratio=100
+vm.overcommit_memory = 2
 ```
 
