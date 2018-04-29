@@ -3,13 +3,13 @@ by Sungjin Han <meinside@gmail.com>
 
 ## Description
 
-My personal dot/config files for Windows Subsystem for Linux, Ubuntu.
+My personal dot/config files for **Windows Subsystem for Linux**, Ubuntu.
 
 ---
 
 ## 0. Install WSL
 
-Install WSL and Ubuntu on Windows 10 with [this guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+Install `WSL` and `Ubuntu` on `Windows 10` with [this guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
 ## 1. Easy install
 
@@ -19,6 +19,18 @@ $ wget -O - "https://raw.github.com/meinside/wsl-configs/master/bin/prep.sh" | b
 ```
 
 then this repository will be cloned to the user's home directory.
+
+## 1. Suggested Terminal Emulator for WSL
+
+I recommend [goreliu/wsl-terminal](https://github.com/goreliu/wsl-terminal).
+
+### A. How to install wsl-terminal
+
+Download the latest version from [here](https://github.com/goreliu/wsl-terminal/releases), and unzip it in a local NTFS volume.
+
+Then execute `tools/1-add-open-wsl-terminal-here-menu.js` in the unzipped folder.
+
+Now you can open wsl-terminal with 'Open wsl-terminal Here' context menu in the explorer.
 
 ## 999. Trouble Shooting
 
