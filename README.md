@@ -32,6 +32,8 @@ Then execute `tools/1-add-open-wsl-terminal-here-menu.js` in the unzipped folder
 
 Now you can open wsl-terminal with 'Open wsl-terminal Here' context menu in the explorer.
 
+You can also add a shortcut to the start menu with `tools/4-create-start-menu-shortcut.js`.
+
 ## 999. Trouble Shooting
 
 ### Hash Sum Mismatch on apt-get update
