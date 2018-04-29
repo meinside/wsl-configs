@@ -34,16 +34,18 @@ Now you can open wsl-terminal with 'Open wsl-terminal Here' context menu in the 
 
 You can also add a shortcut to the start menu with `tools/4-create-start-menu-shortcut.js`.
 
+When using shells other than bash (eg. zsh) run `tools/6-set-default-shell.bat` after executing `chsh`.
+
 ## 999. Trouble Shooting
 
-### Hash Sum Mismatch on apt-get update
+### `Hash Sum Mismatch` on apt-get update
 
 ```bash
 $ sudo rm -rf /var/lib/apt/lists/partial
 $ sudo apt-get update -o Acquire::CompressionTypes::Order::=gz
 ```
 
-### `cannot allocate memory`
+### `cannot allocate memory` when forking a new process
 
 Try:
 
