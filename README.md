@@ -43,3 +43,12 @@ $ sudo rm -rf /var/lib/apt/lists/partial
 $ sudo apt-get update -o Acquire::CompressionTypes::Order::=gz
 ```
 
+### `cannot allocate memory`
+
+Try:
+
+```bash
+$ sudo sysctl -w vm.overcommit_memory=2
+$ sudo sysctl -w vm.overcommit_ratio=100
+```
+
