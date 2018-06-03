@@ -1,7 +1,7 @@
 " meinside's .vimrc file,
 " created by meinside@gmail.com,
 "
-" last update: 2018.04.01.
+" last update: 2018.06.03.
 "
 " XXX - change default text editor:
 " $ sudo update-alternatives --config editor
@@ -57,6 +57,16 @@ Plug 'vim-airline/vim-airline'
 let g:airline#extensions#ale#enabled = 1
 Plug 'docunext/closetag.vim'
 
+" For LanguageServer
+if has('nvim')
+	Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
+	let g:LanguageClient_serverCommands = {}
+	let g:LanguageClient_changeThrottle = 0.5
+	nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+	nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+	nnoremap <silent> <F3> :call LanguageClient#textDocument_rename()<CR>
+endif
+
 " For autocompletion
 if has('nvim')
 	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }	" XXX - python3 needed ($ sudo pip3 install --upgrade neovim)
@@ -81,8 +91,12 @@ Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoInstallBinaries'}
 " For Haskell
 if has('nvim')
 	Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
+
+	" $ git clone https://github.com/haskell/haskell-ide-engine --recursive
+	" $ cd haskell-ide-engine
+	" $ stack --stack-yaml=stack-8.2.2.yaml install
+	let g:LanguageClient_serverCommands['haskell'] = ['hie', '--lsp']
 endif
-Plug 'itchyny/vim-haskell-indent', {'for': 'haskell'}
 
 
 " For syntax checking
