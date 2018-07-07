@@ -98,9 +98,6 @@ if [[ -z $TMUX ]]; then
 		export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 	fi
 
-	# for Lein (Clojure)
-	export LEIN_JVM_OPTS=""
-
 	# additional paths
 	export PATH="$PATH:$HOME/bin"
 	if [ -d "$HOME/.local/bin" ] ; then

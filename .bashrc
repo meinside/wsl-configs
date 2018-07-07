@@ -1,7 +1,7 @@
 # .bashrc
 #
 # created on 2018.03.31.
-# updated on 2018.04.09.
+# updated on 2018.07.07.
 #
 # ... by meinside@gmail.com
 
@@ -171,9 +171,6 @@ if [[ -z $TMUX ]]; then
 		export GOPATH=$HOME/srcs/go
 		export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 	fi
-
-	# for Lein (Clojure)
-	export LEIN_JVM_OPTS=""
 
 	# additional paths
 	PATH="$PATH:$HOME/bin"
