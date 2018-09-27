@@ -1,7 +1,7 @@
-" meinside's .vimrc file,
+" meinside's .vimrc file for vim and neovim,
 " created by meinside@gmail.com,
 "
-" last update: 2018.06.03.
+" last update: 2018.09.27.
 "
 " XXX - change default text editor:
 " $ sudo update-alternatives --config editor
@@ -18,6 +18,15 @@
 if !filereadable(expand('~/.config/nvim/init.vim'))
     silent !mkdir -p ~/.config/nvim
     silent !ln -sf ~/.vimrc ~/.config/nvim/init.vim
+endif
+if has('nvim')	" settings for nvim only
+    set termguicolors
+    colo pablo
+    set mouse-=a	" not to enter visual mode when dragging text
+    let g:go_term_enabled = 1	" XXX - it needs to be set for 'delve' (2017.02.10.)
+else	" settings for vim only
+    set t_Co=256
+    colo elflord
 endif
 
 """"""""""""""""""""""""""""""""""""
@@ -49,13 +58,63 @@ endif
 " plugins
 
 " Useful plugins
+Plug 'jiangmiao/auto-pairs'
 Plug 'tmhedberg/matchit'
 Plug 'tpope/vim-ragtag' " TAG + <ctrl-x> + @, !, #, $, /, <space>, <cr>, ...
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 let g:airline#extensions#ale#enabled = 1
+Plug 'airblade/vim-gitgutter'        " [c, ]c for prev/next hunk
+let g:gitgutter_highlight_lines = 1
+let g:gitgutter_realtime = 0
+let g:gitgutter_eager = 0
+Plug 'Yggdroot/indentLine'
+let g:indentLine_char = '⎸'
+let g:indentLine_enabled = 0	" :IndentLinesToggle
 Plug 'docunext/closetag.vim'
+Plug 'tpope/vim-sleuth'
+Plug 'johngrib/vim-f-hangul'	" can use f/t/;/, on Hangul characters
+
+" For autocompletion
+if has('nvim')
+	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }	" XXX - python3 needed ($ sudo pip3 install --upgrade neovim)
+	let g:deoplete#enable_at_startup = 1
+    let g:deoplete#enable_smart_case = 1
+
+    " To close preview window after selection
+    autocmd CompleteDone * pclose
+endif
+
+" For snippets
+" - Ruby: https://github.com/honza/vim-snippets/blob/master/UltiSnips/ruby.snippets
+" - Go: https://github.com/honza/vim-snippets/blob/master/UltiSnips/go.snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"   " <tab> for next placeholder
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"    " <shift-tab> for previous placeholder
+let g:UltiSnipsEditSplit = "vertical"
+
+" For source file browsing, XXX: ctags and vim-nox is needed! ($ sudo apt-get install vim-nox ctags)
+Plug 'majutsushi/tagbar'
+nmap <F8> :TagbarToggle<CR>
+
+" For uploading Gist (:Gist / :Gist -p / ...)
+Plug 'mattn/webapi-vim'
+Plug 'mattn/gist-vim'
+
+" For syntax checking
+Plug 'vim-syntastic/syntastic'
+set statusline+=%#warningmsg#
+if exists('*SyntasticStatuslineFlag')
+	set statusline+=%{SyntasticStatuslineFlag()}
+endif
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 " For LanguageServer
 if has('nvim')
@@ -67,59 +126,18 @@ if has('nvim')
 	nnoremap <silent> <F3> :call LanguageClient#textDocument_rename()<CR>
 endif
 
-" For autocompletion
-if has('nvim')
-	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }	" XXX - python3 needed ($ sudo pip3 install --upgrade neovim)
-	let g:deoplete#enable_at_startup = 1
-endif
-
-" For source file browsing, XXX: ctags and vim-nox is needed! ($ sudo apt-get install vim-nox ctags)
-Plug 'majutsushi/tagbar'
-nmap <F8> :TagbarToggle<CR>
-
-" For uploading Gist
-Plug 'mattn/webapi-vim'
-Plug 'mattn/gist-vim'
-
 " For Ruby
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
 Plug 'tpope/vim-endwise', {'for': 'ruby'}
 
 " For Go
 Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoInstallBinaries'}
-
-" For Haskell
-if has('nvim')
-	Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
-
-	" $ git clone https://github.com/haskell/haskell-ide-engine --recursive
-	" $ cd haskell-ide-engine
-	" $ stack --stack-yaml=stack-8.2.2.yaml install
-	let g:LanguageClient_serverCommands['haskell'] = ['hie', '--lsp']
-endif
-
-
-" For syntax checking
-Plug 'vim-syntastic/syntastic'
-set statusline+=%#warningmsg#
-if exists('*SyntasticStatuslineFlag')
-	set statusline+=%{SyntasticStatuslineFlag()}
-endif
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-
-" For gitgutter
-Plug 'airblade/vim-gitgutter'        " [c, ]c for prev/next hunk
-let g:gitgutter_highlight_lines = 1
-let g:gitgutter_realtime = 0
-let g:gitgutter_eager = 0
-
-" For Go
 if has('nvim')
 	Plug 'zchee/deoplete-go', {'for': 'go', 'do': 'make'}	" For autocompletion
+    let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']	" Sort order
+    "let g:deoplete#sources#go#source_importer = 1   " XXX too slow yet...
+
+    Plug 'jodosha/vim-godebug', {'for': 'go'}	" For :GoToggleBreakpoint / :GoDebug ($ brew install go-delve/delve/delve)
 endif
 let g:go_fmt_command = "goimports"     " auto import dependencies
 let g:go_highlight_build_constraints = 1
@@ -132,13 +150,42 @@ let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
 let g:go_auto_sameids = 1
 let g:go_auto_type_info = 1
-let g:syntastic_go_checkers = ['go']	" XXX: 'golint' is too slow, use :GoLint manually.
+let g:syntastic_go_checkers = ['go', 'errcheck', 'golint']
 let g:syntastic_aggregate_errors = 1
+
+" For Haskell
+if has('nvim')
+    Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
+
+    " Install ghc with stack, then
+    "
+    " $ git clone https://github.com/haskell/haskell-ide-engine --recursive
+    " $ cd haskell-ide-engine && stack install
+    let g:LanguageClient_serverCommands.haskell = ['hie', '--lsp']
+
+    " For hoogle
+    " $ stack exec -- hoogle generate
+
+    " For VS Code
+    " $ stack install phoityne-vscode
+endif
 
 " For Python
 if has('nvim')
 	Plug 'zchee/deoplete-jedi', {'for': 'python'}	" For autocompletion
+    let g:deoplete#sources#jedi#show_docstring = 1
 endif
+
+" For JavaScript frameworks
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'	" React
+let g:javascript_plugin_flow = 1
+let g:jsx_ext_required = 0
+Plug 'posva/vim-vue'	" Vue.js
+
+" For vim-codefmt (:FormatLines, :FormatCode)
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
 
 "
 """"""""
@@ -169,9 +216,11 @@ set wildmenu   " visual autocomplete for command menu
 set showbreak=↳
 set breakindent
 
-" for color schemes
-set t_Co=256
-colo elflord
+" for running correct rvm ruby in zsh
+set shell=/bin/bash
+
+" Don't use Ex mode, use Q for formatting
+map Q gq
 
 " file browser (netrw)
 " :Ex, :Sex, :Vex
@@ -179,9 +228,6 @@ let g:netrw_liststyle = 3
 let g:netrw_winsize = 30
 " <F2> for vertical file browser
 nmap <F2> :Vex <CR>
-
-" Don't use Ex mode, use Q for formatting
-map Q gq
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
