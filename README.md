@@ -7,13 +7,13 @@ My personal dot/config files for **Windows Subsystem for Linux**, Ubuntu.
 
 ---
 
-## 0. Install WSL
+## 0. Prerequisite: Install WSL
 
 ### A. Install WSL with Chocolatey
 
 #### a. Install Chocolatey
 
-As the [guide](https://chocolatey.org/docs/installation) says, run **PowerShell** as administrator, and type following things:
+As [this installation guide](https://chocolatey.org/docs/installation) says, run **PowerShell** as administrator, and type following things:
 
 ```
 Shell> Set-ExecutionPolicy AllSigned
@@ -28,7 +28,7 @@ With the installed Chocolatey, install WSL:
 Shell> choco install wsl
 ```
 
-and install additional Linux distros:
+and install additional Linux distros like:
 
 ```
 Shell> choco install wsl-ubuntu-1804
@@ -51,7 +51,7 @@ then this repository will be cloned to the user's home directory.
 
 [goreliu/wsl-terminal](https://github.com/goreliu/wsl-terminal), or [felixse/FluentTerminal](https://chocolatey.org/packages/fluent-terminal) are recommended.
 
-### A. How to install wsl-terminal
+### A. How to install wsl-terminal manually
 
 Download the latest version from [here](https://github.com/goreliu/wsl-terminal/releases), and unzip it in a local NTFS volume.
 
