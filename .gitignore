@@ -1,5 +1,5 @@
 # git ignore file of meinside@gmail.com
-# last update: 2018.03.31.
+# last update: 2019.10.19.
 
 # unnecessary binary files
 *.o
@@ -72,6 +72,9 @@ srcs
 .local/
 .xsession-errors
 .Xauthority
+
+# VS Code files
+.vscode-server/
 
 # private/config files & dirs
 .aptitude/
