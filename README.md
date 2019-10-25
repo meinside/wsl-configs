@@ -20,7 +20,14 @@ Shell> Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System
 
 ### B. Install WSL
 
+
+#### a. WSL
+
 Install `WSL` and `Ubuntu` on `Windows 10` with [this guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+
+#### b. WSL 2
+
+For WSL 2, read [this guide](https://docs.microsoft.com/en-us/windows/wsl/wsl2-install).
 
 ## 1. Get these config files
 
