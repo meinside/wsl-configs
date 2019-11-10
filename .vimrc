@@ -1,7 +1,7 @@
 " meinside's .vimrc file for vim and neovim,
 " created by meinside@gmail.com,
 "
-" last update: 2018.09.27.
+" last update: 2019.11.10.
 "
 " XXX - change default text editor:
 " $ sudo update-alternatives --config editor
@@ -78,23 +78,85 @@ Plug 'johngrib/vim-f-hangul'	" can use f/t/;/, on Hangul characters
 
 " For autocompletion
 if has('nvim')
-	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }	" XXX - python3 needed ($ sudo pip3 install --upgrade neovim)
-	let g:deoplete#enable_at_startup = 1
-    let g:deoplete#enable_smart_case = 1
+    Plug 'neoclide/coc.nvim', {'branch': 'release'} " XXX - nodejs needed!
+
+    " coc.nvim default settings
+    "
+    " if hidden is not set, TextEdit might fail.
+    set hidden
+    " Better display for messages
+    set cmdheight=2
+    " Smaller updatetime for CursorHold & CursorHoldI
+    set updatetime=300
+    " don't give |ins-completion-menu| messages.
+    set shortmess+=c
+    " always show signcolumns
+    set signcolumn=yes
+
+    " Use tab for trigger completion with characters ahead and navigate.
+    " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+    inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ coc#refresh()
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+    function! s:check_back_space() abort
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~# '\s'
+    endfunction
+
+    " Use <c-space> to trigger completion.
+    inoremap <silent><expr> <c-space> coc#refresh()
+
+    " Use `[c` and `]c` to navigate diagnostics
+    nmap <silent> [c <Plug>(coc-diagnostic-prev)
+    nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+    " Remap keys for gotos
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)
+
+    " Remap for rename current word
+    nmap <leader>rn <Plug>(coc-rename)
+
+    " Remap for format selected region
+    vmap <leader>f  <Plug>(coc-format-selected)
+    nmap <leader>f  <Plug>(coc-format-selected)
+    " Show all diagnostics
+    nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+    " Manage extensions
+    nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+    " Show commands
+    nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+    " Find symbol of current document
+    nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+    " Search workspace symbols
+    nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+    " Do default action for next item.
+    nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+    " Do default action for previous item.
+    nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+    " Resume latest coc list
+    nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+    " float-preview
+    "Plug 'ncm2/float-preview.nvim'
+    "set completeopt-=preview
 
     " To close preview window after selection
     autocmd CompleteDone * pclose
-endif
 
-" For snippets
-" - Ruby: https://github.com/honza/vim-snippets/blob/master/UltiSnips/ruby.snippets
-" - Go: https://github.com/honza/vim-snippets/blob/master/UltiSnips/go.snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"   " <tab> for next placeholder
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"    " <shift-tab> for previous placeholder
-let g:UltiSnipsEditSplit = "vertical"
+    " coc extensions (:CocInstall <extension-name>)
+    "
+    " - clojure: coc-conjure
+    " - go: coc-go
+    " - ruby: coc-solargraph ($ gem install solargraph)
+    let g:coc_global_extensions = ['coc-json',
+        \ 'coc-conjure', 'coc-go', 'coc-solargraph']
+endif
 
 " For source file browsing, XXX: ctags and vim-nox is needed! ($ sudo apt-get install vim-nox ctags)
 Plug 'majutsushi/tagbar'
@@ -108,7 +170,7 @@ Plug 'mattn/gist-vim'
 Plug 'vim-syntastic/syntastic'
 set statusline+=%#warningmsg#
 if exists('*SyntasticStatuslineFlag')
-	set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%{SyntasticStatuslineFlag()}
 endif
 set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
@@ -116,28 +178,25 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-" For LanguageServer
-if has('nvim')
-	Plug 'autozimu/LanguageClient-neovim', {'branch': 'next', 'do': 'bash install.sh'}
-	let g:LanguageClient_serverCommands = {}
-	let g:LanguageClient_changeThrottle = 0.5
-	nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-	nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-	nnoremap <silent> <F3> :call LanguageClient#textDocument_rename()<CR>
-endif
+" For vim-codefmt (:FormatLines, :FormatCode)
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
 
-" For Ruby
-Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
-Plug 'tpope/vim-endwise', {'for': 'ruby'}
+" For Clojure
+if has('nvim')
+    Plug 'Olical/conjure', { 'tag': 'v2.1.0', 'do': 'bin/compile'  }
+    let g:conjure_log_direction = "horizontal"
+endif
+" $ go get github.com/cespare/goclj/cljfmt
+Plug 'dmac/vim-cljfmt', {'for': 'clojure'}
 
 " For Go
 Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoInstallBinaries'}
 if has('nvim')
-	Plug 'zchee/deoplete-go', {'for': 'go', 'do': 'make'}	" For autocompletion
-    let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']	" Sort order
-    "let g:deoplete#sources#go#source_importer = 1   " XXX too slow yet...
-
     Plug 'jodosha/vim-godebug', {'for': 'go'}	" For :GoToggleBreakpoint / :GoDebug ($ brew install go-delve/delve/delve)
+
+    " disable vim-go :GoDef short cut (gd), this is handled by LanguageClient [LC]
+    let g:go_def_mapping_enabled = 0
 endif
 let g:go_fmt_command = "goimports"     " auto import dependencies
 let g:go_highlight_build_constraints = 1
@@ -153,39 +212,12 @@ let g:go_auto_type_info = 1
 let g:syntastic_go_checkers = ['go', 'errcheck', 'golint']
 let g:syntastic_aggregate_errors = 1
 
-" For Haskell
-if has('nvim')
-    Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
-
-    " Install ghc with stack, then
-    "
-    " $ git clone https://github.com/haskell/haskell-ide-engine --recursive
-    " $ cd haskell-ide-engine && stack install
-    let g:LanguageClient_serverCommands.haskell = ['hie', '--lsp']
-
-    " For hoogle
-    " $ stack exec -- hoogle generate
-
-    " For VS Code
-    " $ stack install phoityne-vscode
-endif
-
-" For Python
-if has('nvim')
-	Plug 'zchee/deoplete-jedi', {'for': 'python'}	" For autocompletion
-    let g:deoplete#sources#jedi#show_docstring = 1
-endif
-
 " For JavaScript frameworks
 Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'	" React
-let g:javascript_plugin_flow = 1
-let g:jsx_ext_required = 0
-Plug 'posva/vim-vue'	" Vue.js
 
-" For vim-codefmt (:FormatLines, :FormatCode)
-Plug 'google/vim-maktaba'
-Plug 'google/vim-codefmt'
+" For Ruby
+Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
+Plug 'tpope/vim-endwise', {'for': 'ruby'}
 
 "
 """"""""
@@ -232,38 +264,40 @@ nmap <F2> :Vex <CR>
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 if &t_Co > 2 || has("gui_running")
-	syntax on
-	set hlsearch
+    syntax on
+    set hlsearch
 endif
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
-	" Put these in an autocmd group, so that we can delete them easily.
-	augroup vimrcEx
-		au!
+    " Put these in an autocmd group, so that we can delete them easily.
+    augroup vimrcEx
+        au!
 
-		" For all text files set 'textwidth' to 78 characters.
-		autocmd FileType text setlocal textwidth=78
+        " For all text files set 'textwidth' to 78 characters.
+        autocmd FileType text setlocal textwidth=78
 
-		" For html/javascript/css
-		autocmd FileType htm,html,js,json set ai sw=2 ts=2 sts=2 et
-		autocmd FileType css,scss set ai sw=2 ts=2 sts=2 et
+        " For html/javascript/css
+        autocmd FileType htm,html,js,json set ai sw=2 ts=2 sts=2 et
+        autocmd FileType css,scss set ai sw=2 ts=2 sts=2 et
 
-		" For programming languages
-		autocmd FileType go set ai sw=4 ts=4 sts=4 noet	" Golang
-		autocmd FileType ruby,eruby,yaml set ai sw=2 ts=2 sts=2 et	" Ruby
-		autocmd FileType python set ai sw=2 ts=2 sts=2 et	" Python
-		autocmd FileType haskell set ai sw=2 ts=2 sts=2 et " Haskell
+        " For programming languages
+        " Golang
+        autocmd FileType go set ai sw=4 ts=4 sts=4 noet
+        " Ruby
+        autocmd FileType ruby,eruby,yaml set ai sw=2 ts=2 sts=2 et
+        " Python
+        autocmd FileType python set ai sw=2 ts=2 sts=2 et
 
-		" When editing a file, always jump to the last known cursor position.
-		" Don't do it when the position is invalid or when inside an event handler
-		" (happens when dropping a file on gvim).
-		autocmd BufReadPost *
-					\ if line("'\"") > 0 && line("'\"") <= line("$") |
-					\   exe "normal g`\"" |
-					\ endif
-	augroup END
+        " When editing a file, always jump to the last known cursor position.
+        " Don't do it when the position is invalid or when inside an event handler
+        " (happens when dropping a file on gvim).
+        autocmd BufReadPost *
+            \ if line("'\"") > 0 && line("'\"") <= line("$") |
+            \   exe "normal g`\"" |
+            \ endif
+    augroup END
 else
-	set autoindent		" always set autoindenting on
+    set autoindent		" always set autoindenting on
 endif " has("autocmd")
 
