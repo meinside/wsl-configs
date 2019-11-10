@@ -49,7 +49,7 @@ sudo apt-get -y upgrade
 
 # install other essential packages
 echo -e "${YELLOW}>>> installing other essential packages...${RESET}"
-sudo apt-get -y install zsh vim tmux mosh npm clojure leiningen ruby
+sudo apt-get -y install zsh vim tmux mosh npm
 
 # cleanup
 echo -e "${YELLOW}>>> cleaning up...${RESET}"
