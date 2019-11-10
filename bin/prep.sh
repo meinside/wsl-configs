@@ -6,7 +6,7 @@
 # and setting up several things for WSL, Ubuntu
 # (https://raw.github.com/meinside/wsl-configs/master/bin/prep.sh)
 # 
-# last update: 2018.03.31.
+# last update: 2019.11.11.
 # 
 # by meinside@gmail.com
 
