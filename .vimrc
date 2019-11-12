@@ -1,14 +1,14 @@
-" meinside's .vimrc file for vim and neovim,
+" meinside's .vimrc file for n/vim,
 " created by meinside@gmail.com,
 "
-" last update: 2019.11.10.
+" last update: 2019.11.12.
 "
-" XXX - change default text editor:
-" $ sudo update-alternatives --config editor
-"
-" XXX - setup for nvim:
+" NOTE: setup for nvim:
 " $ sudo apt-get install python3-pip
 " $ sudo pip3 install --upgrade neovim
+"
+" NOTE: for coc.nvim:
+" $ sudo apt-get install node
 
 """"""""""""""""""""""""""""""""""""
 " settings for nvim
@@ -21,12 +21,10 @@ if !filereadable(expand('~/.config/nvim/init.vim'))
 endif
 if has('nvim')	" settings for nvim only
     set termguicolors
-    colo pablo
     set mouse-=a	" not to enter visual mode when dragging text
     let g:go_term_enabled = 1	" XXX - it needs to be set for 'delve' (2017.02.10.)
 else	" settings for vim only
     set t_Co=256
-    colo elflord
 endif
 
 """"""""""""""""""""""""""""""""""""
@@ -67,14 +65,14 @@ Plug 'vim-airline/vim-airline'
 let g:airline#extensions#ale#enabled = 1
 Plug 'airblade/vim-gitgutter'        " [c, ]c for prev/next hunk
 let g:gitgutter_highlight_lines = 1
-let g:gitgutter_realtime = 0
-let g:gitgutter_eager = 0
 Plug 'Yggdroot/indentLine'
 let g:indentLine_char = '⎸'
 let g:indentLine_enabled = 0	" :IndentLinesToggle
 Plug 'docunext/closetag.vim'
 Plug 'tpope/vim-sleuth'
 Plug 'johngrib/vim-f-hangul'	" can use f/t/;/, on Hangul characters
+Plug 'luochen1990/rainbow'	" rainbow-colored parentheses
+let g:rainbow_active = 1
 
 " For autocompletion
 if has('nvim')
@@ -109,9 +107,9 @@ if has('nvim')
     " Use <c-space> to trigger completion.
     inoremap <silent><expr> <c-space> coc#refresh()
 
-    " Use `[c` and `]c` to navigate diagnostics
-    nmap <silent> [c <Plug>(coc-diagnostic-prev)
-    nmap <silent> ]c <Plug>(coc-diagnostic-next)
+    " Use `[d` and `]d` to navigate diagnostics
+    nmap <silent> [d <Plug>(coc-diagnostic-prev)
+    nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
     " Remap keys for gotos
     nmap <silent> gd <Plug>(coc-definition)
@@ -145,6 +143,8 @@ if has('nvim')
     " float-preview
     "Plug 'ncm2/float-preview.nvim'
     "set completeopt-=preview
+
+    highlight link CocFloating markdown
 
     " To close preview window after selection
     autocmd CompleteDone * pclose
@@ -301,3 +301,7 @@ else
     set autoindent		" always set autoindenting on
 endif " has("autocmd")
 
+" set colorscheme
+let g:hybrid_transparent_background = 1
+set background=dark
+colorscheme hybrid_material
