@@ -55,6 +55,9 @@ endif
 """"""""
 " plugins
 
+" colorschemes (https://github.com/rafi/awesome-vim-colorschemes)
+Plug 'kristijanhusak/vim-hybrid-material'
+
 " Useful plugins
 Plug 'jiangmiao/auto-pairs'
 Plug 'tmhedberg/matchit'
