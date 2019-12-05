@@ -1,7 +1,7 @@
 " meinside's .vimrc file for n/vim,
 " created by meinside@gmail.com,
 "
-" last update: 2019.11.12.
+" last update: 2019.12.05.
 "
 " NOTE: setup for nvim:
 " $ sudo apt-get install python3-pip
@@ -187,7 +187,7 @@ Plug 'google/vim-codefmt'
 
 " For Clojure
 if has('nvim')
-    Plug 'Olical/conjure', { 'tag': 'v2.1.0', 'do': 'bin/compile'  }
+    Plug 'Olical/conjure', { 'tag': 'v2.1.2', 'do': 'bin/compile'  }
     let g:conjure_log_direction = "horizontal"
 endif
 " $ go get github.com/cespare/goclj/cljfmt
