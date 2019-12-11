@@ -1,7 +1,7 @@
 " meinside's .vimrc file for n/vim,
 " created by meinside@gmail.com,
 "
-" last update: 2019.12.05.
+" last update: 2019.12.11.
 "
 " NOTE: setup for nvim:
 " $ sudo apt-get install python3-pip
@@ -191,12 +191,22 @@ if has('nvim')
     let g:conjure_log_direction = "horizontal"
 endif
 " $ go get github.com/cespare/goclj/cljfmt
-Plug 'dmac/vim-cljfmt', {'for': 'clojure'}
+Plug 'dmac/vim-cljfmt'
+" >f, <f : move a form
+" >e, <e : move an element
+" >), <), >(, <( : move a parenthesis
+" <I, >I : insert at the beginning or end of a form
+" dsf : remove surroundings
+" cse(, cse), cseb : surround an element with parenthesis
+" cse[, cse] : surround an element with brackets
+" cse{, cse} : surround an element with braces
+Plug 'guns/vim-sexp'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
 
 " For Go
 Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoInstallBinaries'}
 if has('nvim')
-    Plug 'jodosha/vim-godebug', {'for': 'go'}	" For :GoToggleBreakpoint / :GoDebug ($ brew install go-delve/delve/delve)
+    Plug 'jodosha/vim-godebug'	" For :GoToggleBreakpoint / :GoDebug ($ brew install go-delve/delve/delve)
 
     " disable vim-go :GoDef short cut (gd), this is handled by LanguageClient [LC]
     let g:go_def_mapping_enabled = 0
@@ -219,8 +229,8 @@ let g:syntastic_aggregate_errors = 1
 Plug 'pangloss/vim-javascript'
 
 " For Ruby
-Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
-Plug 'tpope/vim-endwise', {'for': 'ruby'}
+Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-endwise'
 
 "
 """"""""
