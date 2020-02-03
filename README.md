@@ -5,6 +5,8 @@ by Sungjin Han <meinside@gmail.com>
 
 My personal dot/config files for **Windows Subsystem for Linux**, Ubuntu.
 
+**NOTE: these files are being maintained [here](https://github.com/meinside/dotfiles) since _2020-02-03_.**
+
 ---
 
 ## 0. Prerequisite: Install Chocolatey and WSL
